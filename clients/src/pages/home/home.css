@@ -1,0 +1,35 @@
+.trendprof{
+    border-right: 2px solid cadetblue;
+    height: 43rem;
+    overflow-y: scroll;
+}
+
+.trendprofmid{
+    height: 43rem;
+    overflow-y: scroll;
+}
+.right3{
+    height: 43rem;
+    overflow-y: scroll;
+    
+}
+
+.switchtab{
+    display: none;
+}
+@media only screen and (max-width:1000px){
+    
+    .trendprof{
+        display: none;
+    }
+    
+}
+@media only screen and (max-width:769px){
+    .switchtab{
+        display: block;
+    }
+    .maincontdown{
+        display: none;
+    }
+
+}
