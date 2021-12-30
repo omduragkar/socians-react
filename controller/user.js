@@ -6,39 +6,29 @@ module.exports.createSession = async function(req, res)
     try{
 
         let user = await User.findOne({email:req.body.email});
-        try{
-            let y = await user.matchPassword(req.body.password);     
-            // console.log(y);       
-            if(y)
-            {
 
-                let x = await jwtsign(user._id);
-                res.status(200).json({
-                    message:"success",
-                    token: x,
-                })
-            }
-            else{
-                res.status(403);
-                res.json({
-                    message:"Invalid Email or Password"
-                })
-            }
-        }catch(err0)
+        let y = await user.matchPassword(req.body.password);     
+        // console.log(y);       
+        if(y)
         {
-            console.log(err0);
-            res.status(403);
+
+            let x = await jwtsign(user._id);
+            res.status(200).json({
+                message:"success",
+                token: x,
+            })
+        }
+        else{
+            res.status(400);
             res.json({
-                err0,
                 message:"Invalid Email or Password"
             })
         }
     }catch(err){
         console.log(err);
-        res.status(403);
+        res.status(400);
         res.json({
-            err,
-            message:"Invalid Email or Password"
+            message:"No email Exist"
         })
     }
 
@@ -55,7 +45,7 @@ module.exports.createUser = function(req, res)
             if(user || err)
             {
 
-                res.status(403);
+                res.status(400);
                 res.json({
                     'message': "User already Exists"
                 })   
@@ -67,7 +57,7 @@ module.exports.createUser = function(req, res)
                     if(err)
                     {
                         console.log(err);
-                        res.status(403);
+                        res.status(401);
                         res.json({
                             'message': "User creation Mismatch"
                         })
